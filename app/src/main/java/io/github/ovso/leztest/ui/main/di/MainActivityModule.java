@@ -2,6 +2,7 @@ package io.github.ovso.leztest.ui.main.di;
 
 import dagger.Module;
 import dagger.Provides;
+import io.github.ovso.leztest.data.network.ImageRequest;
 import io.github.ovso.leztest.data.network.model.Disease;
 import io.github.ovso.leztest.ui.base.adapter.BaseAdapterDataModel;
 import io.github.ovso.leztest.ui.base.adapter.BaseAdapterView;
@@ -16,8 +17,8 @@ import javax.inject.Singleton;
 
   @Provides MainPresenter provideMainPresenter(MainPresenter.View view,
       ResourceProvider resourceProvider, SchedulersFacade schedulersFacade,
-      BaseAdapterDataModel<Disease> adapterDataModel) {
-    return new MainPresenterImpl(view, resourceProvider, schedulersFacade, adapterDataModel);
+      BaseAdapterDataModel<Disease> adapterDataModel, ImageRequest imageRequest) {
+    return new MainPresenterImpl(view, resourceProvider, schedulersFacade, adapterDataModel, imageRequest);
   }
 
   @Singleton @Provides MainAdapter provideMainAdapter() {

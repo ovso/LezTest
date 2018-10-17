@@ -76,7 +76,6 @@ dependencies {
   implementation "com.crashlytics.sdk.android:crashlytics:$firebase_crashlytics_version"
 
   // UI
-  implementation "com.github.rudsonlive:searchliveo:$searchliveo_version"
   implementation "com.github.fondesa:recycler-view-divider:$recyclerview_divider_version"
 
   testImplementation 'junit:junit:4.12'

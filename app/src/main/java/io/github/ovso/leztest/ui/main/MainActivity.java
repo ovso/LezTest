@@ -3,15 +3,11 @@ package io.github.ovso.leztest.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import br.com.liveo.searchliveo.SearchLiveo;
 import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.RecyclerViewDivider;
 import io.github.ovso.leztest.R;
@@ -21,20 +17,19 @@ import io.github.ovso.leztest.ui.base.BaseActivity;
 import io.github.ovso.leztest.ui.base.adapter.BaseAdapterView;
 import io.github.ovso.leztest.ui.base.adapter.MyRecyclerView;
 import io.github.ovso.leztest.ui.base.adapter.OnRecyclerViewItemClickListener;
+import io.github.ovso.leztest.ui.base.listener.SimpleOnQueryTextListener;
 import io.github.ovso.leztest.ui.main.adapter.MainAdapter;
 import io.github.ovso.leztest.ui.result.ResultActivity;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View,
-    OnRecyclerViewItemClickListener<Disease>, SearchLiveo.OnSearchListener {
+    OnRecyclerViewItemClickListener<Disease> {
 
   @Inject MainPresenter presenter;
   @Inject MainAdapter adapter;
   @Inject BaseAdapterView adapterView;
   @BindView(R.id.recycler_view) MyRecyclerView recyclerView;
-  @BindView(R.id.drawer_layout) DrawerLayout drawer;
-  @BindView(R.id.navigation_view) NavigationView navigationView;
-  @BindView(R.id.search_liveo) SearchLiveo searchLiveo;
+  private SearchView searchView;
 
   @Override protected int getLayoutResID() {
     return R.layout.activity_main;
@@ -42,10 +37,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
 
   @Override protected void onCreated(@Nullable Bundle savedInstanceState) {
     presenter.onCreated();
-  }
-
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
   }
 
   @Override public void setupRecyclerView() {
@@ -69,41 +60,20 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
     startActivity(intent);
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    return true;
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.action_search) {
-      searchLiveo.show();
-      return true;
-    } else {
-      return super.onOptionsItemSelected(item);
+  private SimpleOnQueryTextListener simpleOnQueryTextListener = new SimpleOnQueryTextListener() {
+    @Override public boolean onQueryTextChange(String query) {
+      presenter.onQueryTextChange(query);
+      return false;
     }
-  }
+  };
 
-  @Override public void setupToolbar() {
-    ActionBarDrawerToggle toggle =
-        new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close);
-    drawer.addDrawerListener(toggle);
-    toggle.syncState();
-    navigationView.setNavigationItemSelectedListener(
-        item -> {
-          drawer.closeDrawer(GravityCompat.START);
-          return true;
-        });
-  }
-
-  @Override public void setupSearchLiveo() {
-    searchLiveo.with(this).build();
-    searchLiveo.showVoice();
-    searchLiveo.minToSearch(0);
-  }
-
-  @Override public void closeDrawer() {
-    drawer.closeDrawer(GravityCompat.START);
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.options_menu, menu);
+    MenuItem searchMenu = menu.findItem(R.id.action_search);
+    searchView = (SearchView) searchMenu.getActionView();
+    searchView.setOnQueryTextListener(simpleOnQueryTextListener);
+    return true;
   }
 
   @Override public void onItemClick(Disease disease) {
@@ -112,24 +82,5 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
 
   @Override public void onItemLikeClick(Disease item) {
     presenter.onItemLikeClick(item);
-  }
-
-  @Override public void changedSearch(CharSequence charSequence) {
-    presenter.changedSearch(charSequence);
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (data != null) {
-      if (requestCode == SearchLiveo.REQUEST_CODE_SPEECH_INPUT) {
-        searchLiveo.resultVoice(requestCode, resultCode, data);
-      }
-    }
-  }
-
-  @Override public void onBackPressed() {
-
-    presenter.onBackPressed(drawer.isDrawerOpen(GravityCompat.START));
   }
 }

@@ -8,11 +8,9 @@ public interface MainPresenter {
 
   void onItemClick(Disease disease);
 
-  void changedSearch(CharSequence charSequence);
-
-  void onBackPressed(boolean isDrawerOpen);
-
   void onItemLikeClick(Disease item);
+
+  void onQueryTextChange(String query);
 
   interface View {
 
@@ -21,12 +19,6 @@ public interface MainPresenter {
     void refresh();
 
     void navigateToDetail(Disease disease);
-
-    void setupToolbar();
-
-    void setupSearchLiveo();
-
-    void closeDrawer();
 
     void finish();
   }

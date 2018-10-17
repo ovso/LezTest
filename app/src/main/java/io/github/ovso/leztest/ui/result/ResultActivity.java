@@ -26,10 +26,6 @@ public class ResultActivity extends BaseActivity implements ResultPresenter.View
     presenter.onCreate(getIntent());
   }
 
-  @Override public boolean isTitle() {
-    return true;
-  }
-
   @Override public void refresh() {
     adapterView.refresh();
   }

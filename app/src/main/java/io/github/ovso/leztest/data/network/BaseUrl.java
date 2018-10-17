@@ -3,8 +3,8 @@ package io.github.ovso.leztest.data.network;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter @AllArgsConstructor public enum EndPoint {
+@Getter @AllArgsConstructor public enum BaseUrl {
 
-  RESULT("https://www.googleapis.com");
+  SEARCH_IMAGE("https://dapi.kakao.com");
   private String url;
 }

@@ -26,11 +26,11 @@ public class ResultRequest extends BaseRequest<ResultService> {
   }
 
   @Override protected String getBaseUrl() {
-    return EndPoint.RESULT.getUrl();
+    return BaseUrl.SEARCH_IMAGE.getUrl();
   }
 
-  public Single<Search> getResult(String q, String pageToken) {
-    return getApi().getResult(createQueryMap(q, pageToken));
+  public Single<Search> imageList(String q, String pageToken) {
+    return null;
   }
 
   private Map<String, Object> createQueryMap(String q, String pageToken) {

@@ -19,7 +19,7 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
     setContentView(getLayoutResID());
     bind = ButterKnife.bind(this);
     setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayShowTitleEnabled(isTitle());
+    getSupportActionBar().setDisplayShowTitleEnabled(true);
     onCreated(savedInstanceState);
   }
 
@@ -27,19 +27,10 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
 
   protected abstract void onCreated(@Nullable Bundle savedInstanceState);
 
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    finish();
-    return super.onOptionsItemSelected(item);
-  }
-
   @Override protected void onDestroy() {
     super.onDestroy();
     if (bind != null) {
       bind.unbind();
     }
-  }
-
-  public boolean isTitle() {
-    return false;
   }
 }
