@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +12,6 @@ import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.RecyclerViewDivider;
 import io.github.ovso.leztest.R;
 import io.github.ovso.leztest.data.KeyName;
-import io.github.ovso.leztest.data.network.model.Disease;
 import io.github.ovso.leztest.data.network.model.image.Document;
 import io.github.ovso.leztest.ui.base.BaseActivity;
 import io.github.ovso.leztest.ui.base.adapter.BaseAdapterView;
@@ -31,7 +29,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
   @Inject MainAdapter adapter;
   @Inject BaseAdapterView adapterView;
   @BindView(R.id.recycler_view) MyRecyclerView recyclerView;
-  private SearchView searchView;
 
   @Override protected int getLayoutResID() {
     return R.layout.activity_main;
@@ -42,7 +39,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
   }
 
   @Override public void setupRecyclerView() {
-    recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+    recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
     recyclerView.setAdapter(adapter);
     recyclerView.setOnItemClickListener(this);
     RecyclerViewDivider.with(this)
@@ -73,8 +70,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.options_menu, menu);
     MenuItem searchMenu = menu.findItem(R.id.action_search);
-    searchView = (SearchView) searchMenu.getActionView();
-    searchView.setOnQueryTextListener(simpleOnQueryTextListener);
+    ((SearchView) searchMenu.getActionView()).setOnQueryTextListener(simpleOnQueryTextListener);
     return true;
   }
 
