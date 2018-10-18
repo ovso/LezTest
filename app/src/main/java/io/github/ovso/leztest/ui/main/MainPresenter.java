@@ -1,14 +1,14 @@
 package io.github.ovso.leztest.ui.main;
 
-import io.github.ovso.leztest.data.network.model.Disease;
+import io.github.ovso.leztest.data.network.model.image.Document;
 
 public interface MainPresenter {
 
   void onCreated();
 
-  void onItemClick(Disease disease);
+  void onItemClick(Document item);
 
-  void onItemLikeClick(Disease item);
+  void onItemLikeClick(Document item);
 
   void onQueryTextChange(String query);
 
@@ -18,7 +18,7 @@ public interface MainPresenter {
 
     void refresh();
 
-    void navigateToDetail(Disease disease);
+    void navigateToDetail(Document item);
 
     void finish();
   }

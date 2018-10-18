@@ -2,8 +2,9 @@ package io.github.ovso.leztest.data.network.model.image;
 
 import java.util.Date;
 import lombok.Getter;
+import lombok.ToString;
 
-@Getter public class Document {
+@Getter @ToString public class Document {
   private String collection;
   private String thumbnail_url;
   private String image_url;

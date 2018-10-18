@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import com.fondesa.recyclerviewdivider.RecyclerViewDivider;
 import io.github.ovso.leztest.R;
 import io.github.ovso.leztest.data.KeyName;
 import io.github.ovso.leztest.data.network.model.Disease;
+import io.github.ovso.leztest.data.network.model.image.Document;
 import io.github.ovso.leztest.ui.base.BaseActivity;
 import io.github.ovso.leztest.ui.base.adapter.BaseAdapterView;
 import io.github.ovso.leztest.ui.base.adapter.MyRecyclerView;
@@ -23,7 +25,7 @@ import io.github.ovso.leztest.ui.result.ResultActivity;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View,
-    OnRecyclerViewItemClickListener<Disease> {
+    OnRecyclerViewItemClickListener<Document> {
 
   @Inject MainPresenter presenter;
   @Inject MainAdapter adapter;
@@ -40,7 +42,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
   }
 
   @Override public void setupRecyclerView() {
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
     recyclerView.setAdapter(adapter);
     recyclerView.setOnItemClickListener(this);
     RecyclerViewDivider.with(this)
@@ -54,9 +56,9 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
     adapterView.refresh();
   }
 
-  @Override public void navigateToDetail(Disease disease) {
+  @Override public void navigateToDetail(Document item) {
     Intent intent = new Intent(this, ResultActivity.class);
-    intent.putExtra(KeyName.DISEASE_NAME.getValue(), disease.getName());
+    intent.putExtra(KeyName.DISEASE_NAME.getValue(), "");
     startActivity(intent);
   }
 
@@ -76,11 +78,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
     return true;
   }
 
-  @Override public void onItemClick(Disease disease) {
-    presenter.onItemClick(disease);
+  @Override public void onItemClick(Document item) {
+
   }
 
-  @Override public void onItemLikeClick(Disease item) {
-    presenter.onItemLikeClick(item);
+  @Override public void onItemLikeClick(Document item) {
+
   }
 }

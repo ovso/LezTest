@@ -3,26 +3,25 @@ package io.github.ovso.leztest.ui.main.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.bumptech.glide.Glide;
 import io.github.ovso.leztest.R;
-import io.github.ovso.leztest.data.network.model.Disease;
+import io.github.ovso.leztest.data.network.model.image.Document;
 import io.github.ovso.leztest.ui.base.adapter.BaseViewHolder;
 
 public class MainViewHolder extends BaseViewHolder {
 
-  @BindView(R.id.code_text_view) TextView codeTextView;
-  @BindView(R.id.disease_text_view) TextView diseaseTextView;
+  @BindView(R.id.image_view) ImageView imageView;
 
   private MainViewHolder(View itemView) {
     super(itemView);
   }
 
-  public void bind(Disease disease) {
-    super.bind(disease);
-    codeTextView.setText(disease.getCode());
-    diseaseTextView.setText(disease.getName());
+  public void bind(Document document) {
+    super.bind(document);
+    Glide.with(itemView).load(document.getThumbnail_url()).into(imageView);
   }
 
   public static MainViewHolder create(ViewGroup parent) {
