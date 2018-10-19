@@ -20,17 +20,12 @@ ext {
   jsr250_version = '1.0'
   jsr305_version = '3.0.2'
 
-  firebase_database_version = '16.0.1'
-  firebase_ads_version = '15.0.1'
-  firebase_core_version = '16.0.4'
-  firebase_crashlytics_version = '2.9.5'
-  rxfirebase_version = '16.0.1.0'
-
   recyclerview_animators_version = '2.2.7'
   recyclerview_divider_version = '2.0.1'
   guava_version = '23.5-android'
   licensesdialog_version = '1.8.3'
   glide_version = '4.8.0'
+  fresco_version = '1.11.0'
   photoview_version = '2.0.0'
 
   retrofit_version = '2.4.0'

@@ -10,6 +10,7 @@ public class App extends DaggerApplication {
   @Override public void onCreate() {
     super.onCreate();
     AppInitUtils.timer();
+    AppInitUtils.fresco(this);
   }
 
   @Override protected AndroidInjector<? extends DaggerApplication> applicationInjector() {

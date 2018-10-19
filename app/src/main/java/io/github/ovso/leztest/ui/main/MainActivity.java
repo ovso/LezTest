@@ -19,7 +19,6 @@ import io.github.ovso.leztest.ui.base.adapter.MyRecyclerView;
 import io.github.ovso.leztest.ui.base.adapter.OnRecyclerViewItemClickListener;
 import io.github.ovso.leztest.ui.base.listener.SimpleOnQueryTextListener;
 import io.github.ovso.leztest.ui.main.adapter.MainAdapter;
-import io.github.ovso.leztest.ui.result.ResultActivity;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View,
@@ -43,8 +42,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
     recyclerView.setAdapter(adapter);
     recyclerView.setOnItemClickListener(this);
     RecyclerViewDivider.with(this)
-        .size(1)
-        .color(ContextCompat.getColor(this, android.R.color.darker_gray))
+        .size(3)
+        .color(ContextCompat.getColor(this, android.R.color.white))
         .build()
         .addTo(recyclerView);
   }
@@ -54,9 +53,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
   }
 
   @Override public void navigateToDetail(Document item) {
-    Intent intent = new Intent(this, ResultActivity.class);
-    intent.putExtra(KeyName.DISEASE_NAME.getValue(), "");
-    startActivity(intent);
   }
 
   private SimpleOnQueryTextListener simpleOnQueryTextListener = new SimpleOnQueryTextListener() {

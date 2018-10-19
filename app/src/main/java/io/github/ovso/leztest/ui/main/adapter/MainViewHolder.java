@@ -3,17 +3,15 @@ package io.github.ovso.leztest.ui.main.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.view.SimpleDraweeView;
 import io.github.ovso.leztest.R;
 import io.github.ovso.leztest.data.network.model.image.Document;
 import io.github.ovso.leztest.ui.base.adapter.BaseViewHolder;
 
 public class MainViewHolder extends BaseViewHolder {
-
-  @BindView(R.id.image_view) ImageView imageView;
+  @BindView(R.id.image_view) SimpleDraweeView imageView;
 
   private MainViewHolder(View itemView) {
     super(itemView);
@@ -21,7 +19,7 @@ public class MainViewHolder extends BaseViewHolder {
 
   public void bind(Document document) {
     super.bind(document);
-    Glide.with(itemView).load(document.getThumbnail_url()).into(imageView);
+    imageView.setImageURI(document.getThumbnail_url());
   }
 
   public static MainViewHolder create(ViewGroup parent) {
