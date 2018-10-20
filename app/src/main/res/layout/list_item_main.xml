@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:contentDescription="@string/app_name"
-    app:placeholderImage="@drawable/ic_help_outline"
     app:placeholderImageScaleType="fitXY"
     android:foreground="?android:attr/selectableItemBackground"
     />
