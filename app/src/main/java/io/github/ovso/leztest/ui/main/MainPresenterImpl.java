@@ -1,15 +1,18 @@
 package io.github.ovso.leztest.ui.main;
 
+import io.github.ovso.leztest.R;
 import io.github.ovso.leztest.data.network.ImageRequest;
 import io.github.ovso.leztest.data.network.model.image.Document;
 import io.github.ovso.leztest.data.network.model.image.ImageData;
 import io.github.ovso.leztest.ui.base.adapter.BaseAdapterDataModel;
+import io.github.ovso.leztest.utils.ObjectUtils;
 import io.github.ovso.leztest.utils.ResourceProvider;
 import io.github.ovso.leztest.utils.SchedulersFacade;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import timber.log.Timber;
 
@@ -40,13 +43,18 @@ public class MainPresenterImpl implements MainPresenter {
   }
 
   @Override public void onQueryTextChange(String $query) {
+
     this.query = $query;
     compositeDisposable.clear();
     adapterDataModel.clear();
     view.refresh();
     isEnd = false;
     page = 1;
-    reqImages($query);
+    if (!ObjectUtils.isEmpty($query)) {
+      reqImages($query);
+    } else {
+      view.showNotiMessage(resourceProvider.getString(R.string.input_text));
+    }
   }
 
   private void reqImages(String $query) {
@@ -67,7 +75,14 @@ public class MainPresenterImpl implements MainPresenter {
             Timber.d("TotalCount = " + imageData.getMeta().getTotal_count());
             Timber.d("pageCount = " + imageData.getMeta().getPageable_count());
 
-            adapterDataModel.addAll(imageData.getDocuments());
+            List<Document> documents = imageData.getDocuments();
+            if (documents.size() > 0) {
+              view.showRecyclerView();
+              adapterDataModel.addAll(imageData.getDocuments());
+            } else {
+              view.showNotiMessage(resourceProvider.getString(R.string.no_search_result));
+            }
+
             view.refresh();
             view.setLoaded();
           }
@@ -76,6 +91,7 @@ public class MainPresenterImpl implements MainPresenter {
             Timber.d(e);
             adapterDataModel.clear();
             view.refresh();
+            view.showNotiMessage(resourceProvider.getString(R.string.error));
           }
         });
   }

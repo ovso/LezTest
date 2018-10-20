@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.RecyclerViewDivider;
 import io.github.ovso.leztest.R;
@@ -29,6 +31,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
   @Inject BaseAdapterView adapterView;
   @Inject OnEndlessRecyclerScrollListener onScrollListener;
   @BindView(R.id.recycler_view) MyRecyclerView recyclerView;
+  @BindView(R.id.noti_text_view) TextView notiTextView;
 
   @Override protected int getLayoutResID() {
     return R.layout.activity_main;
@@ -87,5 +90,16 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
 
   @Override public void setLoaded() {
     onScrollListener.setLoaded();
+  }
+
+  @Override public void showRecyclerView() {
+    recyclerView.setVisibility(View.VISIBLE);
+    notiTextView.setVisibility(View.GONE);
+  }
+
+  @Override public void showNotiMessage(String msg) {
+    notiTextView.setText(msg);
+    notiTextView.setVisibility(View.VISIBLE);
+    recyclerView.setVisibility(View.GONE);
   }
 }

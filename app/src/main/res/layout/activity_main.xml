@@ -24,5 +24,13 @@
   </android.support.design.widget.AppBarLayout>
 
   <include layout="@layout/content_main"/>
-
+  <TextView
+      android:id="@+id/noti_text_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:textColor="@android:color/black"
+      android:textSize="30sp"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      />
 </android.support.design.widget.CoordinatorLayout>

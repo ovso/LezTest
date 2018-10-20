@@ -21,5 +21,9 @@ public interface MainPresenter {
     void finish();
 
     void setLoaded();
+
+    void showNotiMessage(String msg);
+
+    void showRecyclerView();
   }
 }

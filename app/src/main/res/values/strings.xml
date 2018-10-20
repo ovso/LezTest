@@ -15,4 +15,7 @@
   <string name="navigation_drawer_close">Close navigation drawer</string>
   <string name="search_title">검색</string>
   <string name="search_hint">검색</string>
+  <string name="no_search_result">검색 결과가 없어요</string>
+  <string name="error">검색어 문제가 있어요</string>
+  <string name="input_text">검색어를 입력해 줘요</string>
 </resources>
