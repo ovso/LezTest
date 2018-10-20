@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
   }
 
   @Override public void setupRecyclerView() {
-    recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(adapter);
     recyclerView.setOnItemClickListener(this);
     RecyclerViewDivider.with(this)
