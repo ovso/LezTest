@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.RecyclerViewDivider;
 import io.github.ovso.leztest.R;
-import io.github.ovso.leztest.data.KeyName;
 import io.github.ovso.leztest.data.network.model.image.Document;
 import io.github.ovso.leztest.ui.base.BaseActivity;
 import io.github.ovso.leztest.ui.base.adapter.BaseAdapterView;
@@ -19,6 +18,7 @@ import io.github.ovso.leztest.ui.base.adapter.MyRecyclerView;
 import io.github.ovso.leztest.ui.base.adapter.OnRecyclerViewItemClickListener;
 import io.github.ovso.leztest.ui.base.listener.SimpleOnQueryTextListener;
 import io.github.ovso.leztest.ui.main.adapter.MainAdapter;
+import io.github.ovso.leztest.ui.result.ResultActivity;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View,
@@ -71,10 +71,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
   }
 
   @Override public void onItemClick(Document item) {
-
-  }
-
-  @Override public void onItemLikeClick(Document item) {
-
+    Intent intent = new Intent(this, ResultActivity.class);
+    intent.putExtra(ResultActivity.EXTRA_PARAM_IMAGE_URL, item.getImage_url());
+    intent.putExtra(ResultActivity.EXTRA_PARAM_IMAGE_WIDTH, item.getWidth());
+    intent.putExtra(ResultActivity.EXTRA_PARAM_IMAGE_HEIGHT, item.getHeight());
+    startActivity(intent);
   }
 }

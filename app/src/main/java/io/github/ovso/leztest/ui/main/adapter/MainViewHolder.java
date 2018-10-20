@@ -1,5 +1,6 @@
 package io.github.ovso.leztest.ui.main.adapter;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ public class MainViewHolder extends BaseViewHolder {
 
   public void bind(Document document) {
     super.bind(document);
-    imageView.setImageURI(document.getThumbnail_url());
+    imageView.setImageURI(Uri.parse(document.getThumbnail_url()));
   }
 
   public static MainViewHolder create(ViewGroup parent) {

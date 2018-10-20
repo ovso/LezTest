@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
-  <io.github.ovso.leztest.ui.base.adapter.MyRecyclerView
-      android:id="@+id/recycler_view"
+  <com.facebook.drawee.view.SimpleDraweeView
+      android:id="@+id/image_view"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="500dp"
+      app:placeholderImage="@drawable/ic_image"
+      app:placeholderImageScaleType="centerCrop"
       />
-</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
