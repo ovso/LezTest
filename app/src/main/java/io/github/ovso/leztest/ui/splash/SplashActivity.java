@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
     setContentView(R.layout.activity_splash);
 
     subscribe =
-        Single.just("splash").delay(500, TimeUnit.MILLISECONDS).subscribe(o -> navigateToMain());
+        Single.just("splash").delay(200, TimeUnit.MILLISECONDS).subscribe(o -> navigateToMain());
   }
 
   private void navigateToMain() {

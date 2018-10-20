@@ -34,9 +34,9 @@ public class ResultActivity extends AppCompatActivity {
     String imageUrl = getIntent().getStringExtra(EXTRA_PARAM_IMAGE_URL);
     int imageWidth = getIntent().getIntExtra(EXTRA_PARAM_IMAGE_WIDTH, 0);
     int imageHeight = getIntent().getIntExtra(EXTRA_PARAM_IMAGE_HEIGHT, 0);
-    Timber.d("imageUrl = " + imageUrl);
-    Timber.d("image width = " + imageWidth);
-    Timber.d("image height = " + imageHeight);
+
+    final float aspectRatio = (float) imageWidth / (float) imageHeight;
+    imageView.setAspectRatio(aspectRatio);
     imageView.setImageURI(Uri.parse(imageUrl));
   }
 

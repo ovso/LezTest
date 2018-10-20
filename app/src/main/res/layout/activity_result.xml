@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:orientation="vertical"
     tools:context=".ui.result.ResultActivity"
     >
 
@@ -29,17 +26,15 @@
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:placeholderImage="@drawable/ic_image"
         app:placeholderImageScaleType="fitXY"
-        fresco:viewAspectRatio="0.7"
         />
 
   </ScrollView>
-  <!--<include layout="@layout/content_result"/>-->
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
