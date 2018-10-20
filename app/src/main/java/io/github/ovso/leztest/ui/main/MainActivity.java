@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -23,11 +22,12 @@ import io.github.ovso.leztest.ui.result.ResultActivity;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View,
-    OnRecyclerViewItemClickListener<Document> {
+    OnRecyclerViewItemClickListener<Document>, OnEndlessRecyclerScrollListener.OnLoadMoreListener {
 
   @Inject MainPresenter presenter;
   @Inject MainAdapter adapter;
   @Inject BaseAdapterView adapterView;
+  @Inject OnEndlessRecyclerScrollListener onScrollListener;
   @BindView(R.id.recycler_view) MyRecyclerView recyclerView;
 
   @Override protected int getLayoutResID() {
@@ -42,9 +42,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(adapter);
     recyclerView.setOnItemClickListener(this);
+    onScrollListener.setLayoutManager(recyclerView.getLayoutManager());
+    recyclerView.addOnScrollListener(onScrollListener);
     RecyclerViewDivider.with(this)
-        .size(3)
-        .color(ContextCompat.getColor(this, android.R.color.white))
+        .size(10)
+        .color(ContextCompat.getColor(this, android.R.color.black))
         .build()
         .addTo(recyclerView);
   }
@@ -73,9 +75,17 @@ public class MainActivity extends BaseActivity implements MainPresenter.View,
 
   @Override public void onItemClick(Document item) {
     Intent intent = new Intent(this, ResultActivity.class);
-    intent.putExtra(ResultActivity.EXTRA_PARAM_IMAGE_URL, item.getImage_url());
+    intent.putExtra(ResultActivity.EXTRA_PARAM_IMAGE_URL, item.getThumbnail_url());
     intent.putExtra(ResultActivity.EXTRA_PARAM_IMAGE_WIDTH, item.getWidth());
     intent.putExtra(ResultActivity.EXTRA_PARAM_IMAGE_HEIGHT, item.getHeight());
     startActivity(intent);
+  }
+
+  @Override public void onLoadMore() {
+    presenter.onLoadMore();
+  }
+
+  @Override public void setLoaded() {
+    onScrollListener.setLoaded();
   }
 }

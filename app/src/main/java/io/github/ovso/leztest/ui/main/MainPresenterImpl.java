@@ -21,6 +21,9 @@ public class MainPresenterImpl implements MainPresenter {
   private SchedulersFacade schedulers;
   private BaseAdapterDataModel<Document> adapterDataModel;
   private ImageRequest imageRequest;
+  private int page = 1;
+  private String query;
+  private boolean isEnd;
 
   public MainPresenterImpl(MainPresenter.View $view, ResourceProvider $ResourceProvider,
       SchedulersFacade $schedulers, BaseAdapterDataModel<Document> $adapterDataModel,
@@ -36,19 +39,20 @@ public class MainPresenterImpl implements MainPresenter {
     view.setupRecyclerView();
   }
 
-  @Override public void onItemClick(Document document) {
-    view.navigateToDetail(document);
-  }
-
-  @Override public void onItemLikeClick(Document item) {
-    Timber.d("onItemLikeClick = " + item);
-  }
-
-  @Override public void onQueryTextChange(String query) {
+  @Override public void onQueryTextChange(String $query) {
+    this.query = $query;
     compositeDisposable.clear();
-    Single.just(query)
+    adapterDataModel.clear();
+    view.refresh();
+    isEnd = false;
+    page = 1;
+    reqImages($query);
+  }
+
+  private void reqImages(String $query) {
+    Single.just($query)
         .delay(1, TimeUnit.SECONDS)
-        .flatMap(q -> imageRequest.images(q, 1))
+        .flatMap(q -> imageRequest.images(q, page))
         .subscribeOn(schedulers.io())
         .observeOn(schedulers.ui())
         .subscribe(new SingleObserver<ImageData>() {
@@ -57,9 +61,15 @@ public class MainPresenterImpl implements MainPresenter {
           }
 
           @Override public void onSuccess(ImageData imageData) {
-            adapterDataModel.clear();
+            isEnd = imageData.getMeta().is_end();
+
+            Timber.d("isEnd = " + isEnd);
+            Timber.d("TotalCount = " + imageData.getMeta().getTotal_count());
+            Timber.d("pageCount = " + imageData.getMeta().getPageable_count());
+
             adapterDataModel.addAll(imageData.getDocuments());
             view.refresh();
+            view.setLoaded();
           }
 
           @Override public void onError(Throwable e) {
@@ -68,5 +78,12 @@ public class MainPresenterImpl implements MainPresenter {
             view.refresh();
           }
         });
+  }
+
+  @Override public void onLoadMore() {
+    if (!isEnd) {
+      page++;
+      reqImages(query);
+    }
   }
 }

@@ -21,7 +21,7 @@ public class MainViewHolder extends BaseViewHolder {
     super.bind(document);
     float aspectRatio = (float) document.getWidth() / (float) document.getHeight();
     imageView.setAspectRatio(aspectRatio);
-    imageView.setImageURI(Uri.parse(document.getImage_url()));
+    imageView.setImageURI(Uri.parse(document.getThumbnail_url()));
     itemView.setOnClickListener(v -> onRecyclerViewItemClickListener.onItemClick(document));
   }
 

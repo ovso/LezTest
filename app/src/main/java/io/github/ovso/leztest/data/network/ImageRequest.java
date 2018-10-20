@@ -31,7 +31,7 @@ public class ImageRequest extends BaseRequest<ImageService> {
   public Single<ImageData> images(String query, int page) {
     Map<String, Object> param = new HashMap<>();
     param.put("query", query);
-    param.put("sort", "accuracy");
+    //param.put("sort", "recency");
     param.put("page", page);
     param.put("size", 30);
     return getApi().images(param);

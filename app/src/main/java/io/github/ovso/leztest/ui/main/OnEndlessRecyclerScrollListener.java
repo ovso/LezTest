@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 public class OnEndlessRecyclerScrollListener extends RecyclerView.OnScrollListener {
   public static String TAG = "OnEndlessRecyclerScrollListener";
 
-  private int visibleThreshold = 1;
+  private int visibleThreshold = 10;
   private int lastVisibleItem, totalItemCount;
   private boolean loading;
 

@@ -6,11 +6,9 @@ public interface MainPresenter {
 
   void onCreated();
 
-  void onItemClick(Document item);
-
-  void onItemLikeClick(Document item);
-
   void onQueryTextChange(String query);
+
+  void onLoadMore();
 
   interface View {
 
@@ -21,5 +19,7 @@ public interface MainPresenter {
     void navigateToDetail(Document item);
 
     void finish();
+
+    void setLoaded();
   }
 }
